@@ -10,13 +10,30 @@
 ```
 public/        ← única pasta servida ao navegador
   index.html, style.css, script.js, icon.png, fundo.webp
-  chat.php     ← endpoint: valida a mensagem, aplica limites e chama a IA
+  chat.php               ← endpoint: valida a mensagem, aplica limites e chama a IA
+  css/robot.css          ← layout/estilo do robô 3D
+  js/robot.js            ← robô 3D (three.js): carregamento, enquadramento, movimento, tratamento de erros
+  js/vendor/             ← three.js + GLTFLoader empacotados (ver LEIA-ME.txt dentro da pasta)
+  models/baymax-robot.glb← modelo 3D (CC BY-NC 4.0, ver CREDITOS.md)
 src/           ← código do servidor (não acessível pelo navegador)
   gemini.php   ← toda a integração com a IA
   prompt.php   ← prompt de sistema do Baymax
   ratelimit.php
+CREDITOS.md    ← créditos e licenças (modelo 3D, three.js)
 Dockerfile
 ```
+
+## Robô 3D
+
+- Fica atrás do chat (`pointer-events: none`): não bloqueia cliques nem digitação.
+- Acompanha o mouse (desktop) ou o dedo (celular) com suavidade e se mexe levemente quando está parado;
+  depois de ~4 s sem movimento volta a olhar para a frente.
+- Se o navegador não tiver WebGL, o modelo não carregar ou o JavaScript do robô falhar, a página volta
+  sozinha ao visual original (wallpaper + chat centralizado) e o chat continua funcionando.
+- Quem usa "reduzir movimento" no sistema recebe o robô parado.
+- Ajustes rápidos (tamanho da rotação, tempo de retorno, luz): constantes no topo de `js/robot.js`.
+- Para voltar ao wallpaper `fundo.webp`, apague o bloco `background-*` em `css/robot.css`.
+- ⚠️ Licença **CC BY-NC**: uso apenas não comercial e com crédito (já no rodapé). Veja `CREDITOS.md`.
 
 ## Variáveis de ambiente
 
@@ -33,6 +50,9 @@ A chave **nunca** vai no código: configure-a no painel do servidor (Render → 
 GEMINI_API_KEY=sua_chave php -S localhost:8000 -t public
 # abra http://localhost:8000
 ```
+
+> Abra sempre pelo endereço `http://localhost:8000`. Abrir o `index.html` com duplo clique (`file://`) não
+> funciona: o navegador bloqueia módulos JS e o carregamento do modelo 3D, e o chat precisa do PHP.
 
 ## Deploy no Render
 

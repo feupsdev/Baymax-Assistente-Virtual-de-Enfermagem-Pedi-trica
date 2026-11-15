@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Ativa o layout do robô 3D já na primeira pintura; o js/robot.js remove a classe se o robô falhar. -->
+    <script>document.documentElement.classList.add('robot-on');</script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/robot.css">
     <link rel="icon" type="image/png" href="icon.png">
     <title>Baymax</title>
 </head>
 <body>
+    <canvas id="robot-canvas" aria-hidden="true"></canvas>
+
     <div class="container">
         <div class="header">
             <img src="icon.png" alt="icon" class="chat-icon">
@@ -25,6 +30,14 @@
         <div id="chat"></div>
     </div>
 
+    <p class="credito-modelo">
+        Modelo 3D
+        <a href="https://sketchfab.com/3d-models/day19-robot-7c6ee02a4bd84439a1d3e5206dbe7745" target="_blank" rel="noopener noreferrer">“DAY19: ROBOT”</a>
+        por <a href="https://sketchfab.com/binrong" target="_blank" rel="noopener noreferrer">binrong</a>
+        — <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a>
+    </p>
+
     <script src="script.js" defer></script>
+    <script type="module" src="js/robot.js" onerror="document.documentElement.classList.remove('robot-on');document.getElementById('robot-canvas').remove()"></script>
 </body>
 </html>

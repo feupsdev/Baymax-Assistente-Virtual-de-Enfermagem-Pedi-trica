@@ -1,0 +1,87 @@
+/* Robô 3D do Baymax.
+   Tudo aqui só vale quando <html> tem a classe "robot-on" (adicionada no index.html e removida
+   pelo js/robot.js se o robô não puder ser exibido) — sem ela, a página fica exatamente como era. */
+
+/* Canvas do robô: ocupa a tela toda, ATRÁS do chat, e nunca recebe cliques nem toques. */
+#robot-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+#robot-canvas.pronto {
+    opacity: 1;
+}
+
+/* Com o robô, o fundo vira vermelho liso (a foto do Baymax do wallpaper competiria com o robô 3D)
+   e o chat desce para a parte de baixo, deixando a cabeça do robô aparecer acima dele.
+   Para voltar ao wallpaper, apague o bloco "background" abaixo (fundo.webp continua na pasta). */
+html.robot-on body {
+    background-color: #c02529;
+    background-image: radial-gradient(ellipse at 50% 38%, #d63a3e 0%, #c02529 50%, #9d1a1e 100%);
+    background-size: cover;
+    background-position: center;
+    align-items: flex-end;
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 34px;
+}
+
+html.robot-on .container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.94);
+}
+
+html.robot-on #chat {
+    background: rgba(233, 233, 233, 0.96);
+}
+
+/* Crédito do modelo 3D (exigido pela licença CC BY): só aparece quando o robô está na tela. */
+.credito-modelo {
+    display: none;
+}
+
+html.robot-ready .credito-modelo {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    z-index: 1;
+    padding: 0 12px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.credito-modelo a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Celular: o campo de texto ocupa a linha inteira e os botões quebram para a linha de baixo
+   (antes, os botões A+ e A- saíam para fora do cartão em telas estreitas). */
+@media (max-width: 480px) {
+    .input-container {
+        flex-wrap: wrap;
+    }
+
+    .input-container input {
+        flex: 1 1 100%;
+    }
+}
+
+/* Telas baixas: encurta a área de mensagens para sobrar espaço para a cabeça do robô acima do chat.
+   (Telas altas continuam com os 350px originais.) */
+@media (max-height: 760px) {
+    html.robot-on #chat {
+        height: clamp(150px, calc(100vh - 430px), 350px);
+    }
+}

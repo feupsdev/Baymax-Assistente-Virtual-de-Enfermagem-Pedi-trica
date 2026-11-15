@@ -1,0 +1,7 @@
+three-lite.min.js = three.js (versão 0.187.0, licença MIT) + GLTFLoader, empacotados com esbuild
+e reduzidos ao que o robô usa (ver three-lite.src.js). Licença do three.js: three.LICENSE.txt.
+
+Para regenerar, em uma pasta com `npm i three esbuild`:
+  npx esbuild three-lite.src.js --bundle --minify --format=esm --legal-comments=eof --outfile=three-lite.min.js
+
+Se precisar de mais algo do three.js em js/robot.js, adicione o nome em three-lite.src.js e gere de novo.
