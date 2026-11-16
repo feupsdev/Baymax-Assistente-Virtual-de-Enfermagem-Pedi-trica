@@ -884,3 +884,67 @@ body::before {
         transition-duration: .01ms !important;
     }
 }
+
+
+/* ==========================================
+   RODAPÉ FEUPS.DEV
+   ========================================== */
+
+.footer-feups {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    width: min(100%, 1380px);
+    margin: 8px auto 0;
+    padding: 0 12px 4px;
+    color: rgba(255, 255, 255, .48);
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.footer-assinatura {
+    margin: 0 0 3px;
+}
+
+.footer-feups a {
+    color: rgba(255, 255, 255, .78);
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.footer-feups a:hover {
+    color: #fff;
+}
+
+.footer-assinatura a {
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px 16px;
+    margin: 3px 0;
+}
+
+.footer-feups small {
+    display: block;
+    font-size: 9px;
+    color: rgba(255, 255, 255, .35);
+}
+
+@media (max-width: 700px) {
+    .footer-feups {
+        margin-top: 7px;
+        padding: 0 8px 8px;
+        font-size: 10px;
+    }
+
+    .footer-links {
+        gap: 5px 13px;
+    }
+}
