@@ -1,43 +1,152 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Ativa o layout do robô 3D já na primeira pintura; o js/robot.js remove a classe se o robô falhar. -->
-    <script>document.documentElement.classList.add('robot-on');</script>
+
+    <script>
+        document.documentElement.classList.add('robot-on');
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/robot.css">
     <link rel="icon" type="image/png" href="icon.png">
-    <title>Baymax</title>
+
+    <title>Baymax | Assistente Virtual</title>
 </head>
+
 <body>
-    <canvas id="robot-canvas" aria-hidden="true"></canvas>
 
-    <div class="container">
-        <div class="header">
-            <img src="icon.png" alt="icon" class="chat-icon">
-            <h2>Baymax</h2>
+    <main class="container">
+
+        <!-- PAINEL DO CHAT -->
+        <section class="chat-panel">
+
+            <header class="header">
+
+                <div class="header-brand">
+
+                    <div class="header-icon">
+                        <img
+                            src="icon.png"
+                            alt="Logo Baymax"
+                            class="chat-icon"
+                        >
+                    </div>
+
+                    <div class="header-info">
+                        <h2>BAYMAX</h2>
+
+                        <div class="header-status">
+                            <span class="status-dot"></span>
+                            <span>ONLINE</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- CONVERSA -->
+            <div
+                id="chat"
+                aria-label="Conversa com Baymax"
+                aria-live="polite"
+            ></div>
+
+            <!-- CAMPO DE MENSAGEM -->
+            <div class="input-container">
+
+                <input
+                    id="CampoMensagem"
+                    type="text"
+                    placeholder="Digite sua mensagem aqui..."
+                    autocomplete="off"
+                    maxlength="1000"
+                    aria-label="Digite sua mensagem"
+                >
+
+                <button id="btnEnviar" type="button">
+                    Enviar
+                </button>
+
+                <button id="btnLimpar" type="button">
+                    Limpar Chat
+                </button>
+
+                <button
+                    id="btnMais"
+                    type="button"
+                    aria-label="Aumentar fonte"
+                >
+                    A+
+                </button>
+
+                <button
+                    id="btnMenos"
+                    type="button"
+                    aria-label="Diminuir fonte"
+                >
+                    A-
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ÁREA INDEPENDENTE DO ROBÔ -->
+        <div class="robot-background">
+
+            <canvas
+                id="robot-canvas"
+                aria-hidden="true"
+            ></canvas>
+
         </div>
 
-        <div class="input-container">
-            <input id="CampoMensagem" type="text" placeholder="Digite sua mensagem aqui..." autocomplete="off" maxlength="1000">
-            <button id="btnEnviar" type="button">Enviar</button>
-            <button id="btnLimpar" type="button">Limpar Chat</button>
-            <button id="btnMais" type="button">A+</button>
-            <button id="btnMenos" type="button">A-</button>
-        </div>
+    </main>
 
-        <div id="chat"></div>
-    </div>
-
+    <!-- CRÉDITO DO MODELO 3D -->
     <p class="credito-modelo">
+
         Modelo 3D
-        <a href="https://sketchfab.com/3d-models/day19-robot-7c6ee02a4bd84439a1d3e5206dbe7745" target="_blank" rel="noopener noreferrer">“DAY19: ROBOT”</a>
-        por <a href="https://sketchfab.com/binrong" target="_blank" rel="noopener noreferrer">binrong</a>
-        — <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a>
+
+        <a
+            href="https://sketchfab.com/3d-models/day19-robot-7c6ee02a4bd84439a1d3e5206dbe7745"
+            target="_blank"
+            rel="noopener noreferrer"
+        >“DAY19: ROBOT”</a>
+
+        por
+
+        <a
+            href="https://sketchfab.com/binrong"
+            target="_blank"
+            rel="noopener noreferrer"
+        >binrong</a>
+
+        —
+
+        <a
+            href="http://creativecommons.org/licenses/by-nc/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >CC BY-NC 4.0</a>
+
     </p>
 
+    <!-- SCRIPTS -->
     <script src="script.js" defer></script>
-    <script type="module" src="js/robot.js" onerror="document.documentElement.classList.remove('robot-on');document.getElementById('robot-canvas').remove()"></script>
+
+    <script
+        type="module"
+        src="js/robot.js"
+        onerror="
+            document.documentElement.classList.remove('robot-on');
+            document.getElementById('robot-canvas')?.remove();
+        "
+    ></script>
+
 </body>
 </html>
