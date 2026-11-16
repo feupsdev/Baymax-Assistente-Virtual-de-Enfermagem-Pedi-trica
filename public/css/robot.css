@@ -1,8 +1,9 @@
-/* Robô 3D do Baymax.
-   Tudo aqui só vale quando <html> tem a classe "robot-on" (adicionada no index.html e removida
-   pelo js/robot.js se o robô não puder ser exibido) — sem ela, a página fica exatamente como era. */
 
-/* Canvas do robô: ocupa a tela toda, ATRÁS do chat, e nunca recebe cliques nem toques. */
+/* ==========================================
+   BAYMAX 3D — POSICIONAMENTO E CHAT
+   ========================================== */
+
+/* Canvas do robô: ocupa a tela inteira e fica atrás do chat */
 #robot-canvas {
     position: fixed;
     inset: 0;
@@ -18,46 +19,133 @@
     opacity: 1;
 }
 
-/* Com o robô, o fundo vira vermelho liso (a foto do Baymax do wallpaper competiria com o robô 3D)
-   e o chat desce para a parte de baixo, deixando a cabeça do robô aparecer acima dele.
-   Para voltar ao wallpaper, apague o bloco "background" abaixo (fundo.webp continua na pasta). */
+/* ==========================================
+   FUNDO E POSICIONAMENTO PRINCIPAL
+   ========================================== */
+
 html.robot-on body {
     background-color: #c02529;
-    background-image: radial-gradient(ellipse at 50% 38%, #d63a3e 0%, #c02529 50%, #9d1a1e 100%);
+    background-image: radial-gradient(
+        ellipse at 50% 38%,
+        #d63a3e 0%,
+        #c02529 50%,
+        #9d1a1e 100%
+    );
+
     background-size: cover;
     background-position: center;
+
+    display: flex;
     align-items: flex-end;
+    justify-content: center;
+
+    width: 100%;
     height: 100vh;
     height: 100dvh;
-    padding-bottom: 34px;
+
+    padding: 0 20px 55px;
+    box-sizing: border-box;
 }
+
+/* ==========================================
+   PAINEL DO CHAT
+   ========================================== */
 
 html.robot-on .container {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.94);
+
+    width: min(100%, 650px);
+    margin: 0 auto;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 22px;
+
+    box-shadow: 0 15px 45px rgba(60, 0, 0, 0.25);
+
+    overflow: hidden;
 }
+
+/* ==========================================
+   ÁREA DAS MENSAGENS
+   ========================================== */
 
 html.robot-on #chat {
-    background: rgba(233, 233, 233, 0.96);
+    height: 260px;
+    max-height: 35vh;
+
+    overflow-y: auto;
+
+    background: #f7f7f8;
+
+    border-radius: 14px;
+
+    margin: 12px;
+    padding: 14px;
+
+    box-sizing: border-box;
+
+    scroll-behavior: smooth;
 }
 
-/* Crédito do modelo 3D (exigido pela licença CC BY): só aparece quando o robô está na tela. */
+/* Barra de rolagem */
+html.robot-on #chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+html.robot-on #chat::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 10px;
+}
+
+html.robot-on #chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ==========================================
+   CAMPO DE MENSAGEM E CONTROLES
+   ========================================== */
+
+html.robot-on .input-container {
+    margin: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+html.robot-on .input-container input {
+    min-width: 0;
+    flex: 1;
+}
+
+/* ==========================================
+   CRÉDITO DO MODELO 3D
+   ========================================== */
+
 .credito-modelo {
     display: none;
 }
 
 html.robot-ready .credito-modelo {
     display: block;
+
     position: fixed;
     left: 0;
     right: 0;
     bottom: 8px;
+
     z-index: 1;
+
     padding: 0 12px;
+
     text-align: center;
+
     font-size: 11px;
     line-height: 1.3;
+
     color: rgba(255, 255, 255, 0.85);
 }
 
@@ -66,22 +154,62 @@ html.robot-ready .credito-modelo {
     text-decoration: underline;
 }
 
-/* Celular: o campo de texto ocupa a linha inteira e os botões quebram para a linha de baixo
-   (antes, os botões A+ e A- saíam para fora do cartão em telas estreitas). */
-@media (max-width: 480px) {
-    .input-container {
-        flex-wrap: wrap;
+/* ==========================================
+   CELULARES
+   ========================================== */
+
+@media (max-width: 600px) {
+    html.robot-on body {
+        padding: 0 10px 45px;
     }
 
-    .input-container input {
+    html.robot-on .container {
+        width: 100%;
+        border-radius: 18px;
+    }
+
+    html.robot-on #chat {
+        height: 200px;
+        max-height: 28vh;
+
+        margin: 10px;
+        padding: 12px;
+    }
+
+    html.robot-on .input-container {
+        flex-wrap: wrap;
+        margin: 10px;
+    }
+
+    html.robot-on .input-container input {
         flex: 1 1 100%;
     }
 }
 
-/* Telas baixas: encurta a área de mensagens para sobrar espaço para a cabeça do robô acima do chat.
-   (Telas altas continuam com os 350px originais.) */
+/* ==========================================
+   TELAS COM POUCA ALTURA
+   ========================================== */
+
 @media (max-height: 760px) {
     html.robot-on #chat {
-        height: clamp(150px, calc(100vh - 430px), 350px);
+        height: clamp(150px, 30vh, 230px);
+    }
+
+    html.robot-on body {
+        padding-bottom: 45px;
+    }
+}
+
+/* ==========================================
+   ACESSIBILIDADE
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    #robot-canvas {
+        transition: none;
+    }
+
+    html.robot-on #chat {
+        scroll-behavior: auto;
     }
 }
