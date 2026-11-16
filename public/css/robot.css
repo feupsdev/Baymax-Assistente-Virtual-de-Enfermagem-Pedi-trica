@@ -58,12 +58,16 @@ html.robot-on .container {
     width: min(100%, 650px);
     margin: 0 auto;
 
-    background: rgba(255, 255, 255, 0.97);
+    /* Painel translúcido para mostrar o Baymax ao fundo */
+    background: rgba(255, 255, 255, 0.78);
 
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 22px;
 
-    box-shadow: 0 15px 45px rgba(60, 0, 0, 0.25);
+    box-shadow: 0 15px 45px rgba(60, 0, 0, 0.20);
 
     overflow: hidden;
 }
@@ -78,7 +82,8 @@ html.robot-on #chat {
 
     overflow-y: auto;
 
-    background: #f7f7f8;
+    /* Transparência para enxergar o robô atrás */
+    background: rgba(247, 247, 248, 0.76);
 
     border-radius: 14px;
 
